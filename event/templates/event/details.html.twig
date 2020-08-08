@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+	<hr>
+
+	<div class="wrapper_detail">
+		{# <div class="col-sm-12 col-md-6 col-lg-4 pl-2 my-3"> #}
+		<div class="card px-4 bg-dark border-light text-light pt-3">
+			<hr><h4>Type:
+				{{event.type}}
+			</h4>
+			<p>{{event.date ? event.date|date('F j, Y, g:i a')}}</p><br>
+
+			
+				<h1 class="card-title text-danger">{{ event.name }}</h1>
+			
+			<h4>
+				{{event.description}}</h4><hr>
+
+
+			<img src="../img/{{ event.image }}" class="card-img-top rounded" alt="">
+			<div class="card-body">
+
+				<div class="d-flex justify-content-between">
+					<h4>Location:
+						{{event.location}}</h4>
+					<h5>Capacity:
+						{{event.capacity}}</h5>
+				</div>
+				<div class="d-flex justify-content-between flex-wrap">
+					<div>
+						<h4>Contact:</h4>
+					</div>
+					<div>
+						<h5>{{event.email}}
+						</h5>
+					</div>
+					<div>
+						<h5>{{event.phone}}
+						</h5>
+					</div>
+					<div>
+						<h5>
+							{{event.url}}
+						</h5>
+						<div></div>
+
+
+					</div>
+
+				</div>
+				<a href="/edit/{{event.id}}" class="btn btn-secondary border-light">Edit</a>
+				<a href="/delete/{{event.id}}" class="btn btn-danger border-light">Delete</a>
+			</div>
+
+			<br>
+			<a class="btn text-light" href="/">Back to Events</a>
+		{% endblock %}

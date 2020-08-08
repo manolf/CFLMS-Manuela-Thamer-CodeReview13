@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="container container-fluid mb-4 bg-dark text-light">
+		<h2 class="page-header mt-4">
+			The Autumn of Awesome Rock
+		</h2>
+		<div class="row mt-4">
+
+			{% for event in events %}
+				<div class="col-sm-12 col-md-6 col-lg-4 pl-2 my-3">
+					<div class="card px-4 bg-dark border-light pt-3">
+						<p>{{event.type}}</p>
+						<img src="../img/{{ event.image }}" class="card-img-top rounded" alt="">
+						<div class="card-body">
+							<a href="/details/{{event.id}}" class="btn btn-success border-light">
+								<h5 class="card-title">{{ event.name }}</h5>
+							</a>
+							<p>{{event.date ? event.date|date('F j, Y, g:i a')}}</p>
+							<a href="/edit/{{event.id}}" class="btn btn-secondary border-light">Edit</a>
+							<a href="/delete/{{event.id}}" class="btn btn-danger border-light" onsubmit="return confirm('Are you really sure you want to delete this event?');">Delete</a>
+
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<tr>
+					<td colspan="7">no records found</td>
+				</tr>
+			{% endfor %}
+
+		</div>
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,80 @@
+public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+
+    /**
+     * @ORM\Column(type="string", length=500)
+     */
+    private $description;
+
+
+    {{event.description}}
+
+    /**
+     * @Route("/{clsCarsId}/edit", name="classic_cars_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, ClassicCars $classicCar): Response
+    {
+        $form = $this->createForm(ClassicCarsType::class, $classicCar);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('classic_cars_index');
+        }
+
+        return $this->render('classic_cars/edit.html.twig', [
+            'classic_car' => $classicCar,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+    * @Route("/delete/{id}", name="todo_delete")
+    */
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+   $event = $em->getRepository('App:Event')->find($id);
+   $em->remove($event);
+    $em->flush();
+   $this->addFlash(
+           'notice',
+           'Event Removed'
+           );
+    return $this->redirectToRoute('home_page');
+}
+
+
+
+/**
+     * @Route("/delete/{id}", name="event_delete", methods={"delete"})
+     */
+    public function delete(Request $request, Event $event): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($event);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('event_index');
+    }
+
+
+            $events = $this->getDoctrine()->getRepository('App:Event')->findOneByName('($type)');
+         
+        return $this->render('event/filter.html.twig', array('events'=>$events));
+
+
+//ois schaass
